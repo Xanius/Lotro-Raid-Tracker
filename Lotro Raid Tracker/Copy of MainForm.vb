@@ -13,7 +13,7 @@ Public Class MainForm
 	End Structure
 
 	Private Sub Form1_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-
+        FlowLayoutPanel1.Controls.Clear()
 		Dim CharacterArray As New ArrayList
 		Dim Characters As Character
 		ComboBox1.Items.Clear()
@@ -49,12 +49,18 @@ Public Class MainForm
 		End If
 		SQLcommand.CommandText = "Select Translation from Dictionary WHERE IsRaid='True'"
 		Dim SQLReaderRaids As SQLiteDataReader = SQLcommand.ExecuteReader()
-		While SQLReaderRaids.Read()
-			RaidPicker.Items.Add(SQLReaderRaids("Translation"))
-		End While
+        While SQLReaderRaids.Read()
+            Dim raid As New Label
+            raid.Name = SQLReaderRaids("Translation")
+            raid.Text = SQLReaderRaids("Translation")
+            raid.ForeColor = Color.Lime
+            raid.AutoSize = True
+            RaidPicker.Items.Add(SQLReaderRaids("Translation"))
+            FlowLayoutPanel1.Controls.Add(raid)
+        End While
 		SQLconnect.Close()
 		SQLconnect.Dispose()
-		LoadStatus()
+        'LoadStatus()
 
 
 	End Sub
@@ -62,9 +68,9 @@ Public Class MainForm
 	
 	Private Sub ComboBox1_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ComboBox1.SelectedIndexChanged
 		CurrentCharacter = ComboBox1.SelectedItem.ToString.Split("-")(0).Trim
-		ColorReset()
 
-		LoadStatus()
+
+        'LoadStatus()
 	End Sub
 
 #End Region
@@ -189,7 +195,7 @@ Public Class MainForm
 		End Try
 		SQLcommand.Dispose()
 		SQLconnect.Close()
-		ColorReset()
+
 		Me.Form1_Load(Me, e)
 	End Sub
 	Private Sub HelpToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles SupportToolStripMenuItem.Click
@@ -258,138 +264,114 @@ Public Class MainForm
 		SQLconnect.Dispose()
 		SQLconnect.Shutdown()
 	End Sub
-	Private Sub ColorReset()
-		Label21st.ForeColor = Color.Lime
-		LabelAmonSul.ForeColor = Color.Lime
-		LabelAttackAtDawn.ForeColor = Color.Lime
-		LabelBarrows.ForeColor = Color.Lime
-		LabelBruinen.ForeColor = Color.Lime
-		LabelDannenglor.ForeColor = Color.Lime
-		LabelDeepWay.ForeColor = Color.Lime
-		LabelDraigoch.ForeColor = Color.Lime
-		LabelGondamon.ForeColor = Color.Lime
-		LabelIcy.ForeColor = Color.Lime
-		LabelNecromancer.ForeColor = Color.Lime
-		LabelPony.ForeColor = Color.Lime
-		LabelRescue.ForeColor = Color.Lime
-		LabelRingwraith.ForeColor = Color.Lime
-		LabelSmiths.ForeColor = Color.Lime
-		LabelThangulhad.ForeColor = Color.Lime
-		LabelThievery.ForeColor = Color.Lime
-		LabelTowerBattle.ForeColor = Color.Lime
-		LabelTuckborough.ForeColor = Color.Lime
-		LabelSpiderWing.ForeColor = Color.Lime
-		LabelDragonWing.ForeColor = Color.Lime
-		LabelDrakeWing.ForeColor = Color.Lime
-		LabelGiantWing.ForeColor = Color.Lime
-	End Sub
-	Private Sub LoadStatus()
-		Dim Raid(30) As Raid
-		If CurrentCharacter IsNot vbNullString Then
-			Dim SQLconnect As New SQLite.SQLiteConnection()
-			Dim SQLcommand As SQLiteCommand
-			SQLconnect.ConnectionString = "Data Source=.\Database\LotroRaids.sqlite;"
-			Try
-				SQLconnect.Open()
-			Catch ex As Exception
+	
+    'Private Sub LoadStatus()
+    '	Dim Raid(30) As Raid
+    '	If CurrentCharacter IsNot vbNullString Then
+    '		Dim SQLconnect As New SQLite.SQLiteConnection()
+    '		Dim SQLcommand As SQLiteCommand
+    '		SQLconnect.ConnectionString = "Data Source=.\Database\LotroRaids.sqlite;"
+    '		Try
+    '			SQLconnect.Open()
+    '		Catch ex As Exception
 
-			End Try
-			SQLcommand = SQLconnect.CreateCommand
-			Try
-				SQLcommand.CommandText = "Select * from Raids WHERE CharacterName ='" + ComboBox1.SelectedItem.ToString.Split("-")(0).Trim + "' AND Server ='" + ComboBox1.SelectedItem.ToString.Split("-")(1).Trim + "'"
+    '		End Try
+    '		SQLcommand = SQLconnect.CreateCommand
+    '		Try
+    '			SQLcommand.CommandText = "Select * from Raids WHERE CharacterName ='" + ComboBox1.SelectedItem.ToString.Split("-")(0).Trim + "' AND Server ='" + ComboBox1.SelectedItem.ToString.Split("-")(1).Trim + "'"
 
 
-				Dim SQLreaderRaids As SQLiteDataReader = SQLcommand.ExecuteReader()
+    '			Dim SQLreaderRaids As SQLiteDataReader = SQLcommand.ExecuteReader()
 
-				Dim i = 0
-				While SQLreaderRaids.Read()
-					Raid(i).DayCompleted = SQLreaderRaids("DayComplete")
-					Raid(i).RaidName = SQLreaderRaids("RaidName")
+    '			Dim i = 0
+    '			While SQLreaderRaids.Read()
+    '				Raid(i).DayCompleted = SQLreaderRaids("DayComplete")
+    '				Raid(i).RaidName = SQLreaderRaids("RaidName")
 
-                    If Date.Now.ToUniversalTime < Raid(i).DayCompleted Then
-                        Select Case Raid(i).RaidName
-                            Case "Label21st"
-                                Label21st.ForeColor = Color.Red
+    '                   If Date.Now.ToUniversalTime < Raid(i).DayCompleted Then
+    '                       Select Case Raid(i).RaidName
+    '                           Case "Label21st"
+    '                               Label21st.ForeColor = Color.Red
 
-                            Case "LabelAmonSul"
-                                LabelAmonSul.ForeColor = Color.Red
+    '                           Case "LabelAmonSul"
+    '                               LabelAmonSul.ForeColor = Color.Red
 
-                            Case "LabelAttackAtDawn"
-                                LabelAttackAtDawn.ForeColor = Color.Red
+    '                           Case "LabelAttackAtDawn"
+    '                               LabelAttackAtDawn.ForeColor = Color.Red
 
-                            Case "LabelBarrows"
-                                LabelBarrows.ForeColor = Color.Red
+    '                           Case "LabelBarrows"
+    '                               LabelBarrows.ForeColor = Color.Red
 
-                            Case "LabelBruinen"
-                                LabelBruinen.ForeColor = Color.Red
+    '                           Case "LabelBruinen"
+    '                               LabelBruinen.ForeColor = Color.Red
 
-                            Case "LabelDannenglor"
-                                LabelDannenglor.ForeColor = Color.Red
+    '                           Case "LabelDannenglor"
+    '                               LabelDannenglor.ForeColor = Color.Red
 
-                            Case "LabelDeepWay"
-                                LabelDeepWay.ForeColor = Color.Red
+    '                           Case "LabelDeepWay"
+    '                               LabelDeepWay.ForeColor = Color.Red
 
-                            Case "LabelDraigoch"
-                                LabelDraigoch.ForeColor = Color.Red
+    '                           Case "LabelDraigoch"
+    '                               LabelDraigoch.ForeColor = Color.Red
 
-                            Case "LabelGondamon"
-                                LabelGondamon.ForeColor = Color.Red
+    '                           Case "LabelGondamon"
+    '                               LabelGondamon.ForeColor = Color.Red
 
-                            Case "LabelIcy"
-                                LabelIcy.ForeColor = Color.Red
+    '                           Case "LabelIcy"
+    '                               LabelIcy.ForeColor = Color.Red
 
-                            Case "LabelNecromancer"
-                                LabelNecromancer.ForeColor = Color.Red
+    '                           Case "LabelNecromancer"
+    '                               LabelNecromancer.ForeColor = Color.Red
 
-                            Case "LabelPony"
-                                LabelPony.ForeColor = Color.Red
+    '                           Case "LabelPony"
+    '                               LabelPony.ForeColor = Color.Red
 
-                            Case "LabelRescue"
-                                LabelRescue.ForeColor = Color.Red
+    '                           Case "LabelRescue"
+    '                               LabelRescue.ForeColor = Color.Red
 
-                            Case "LabelRingwraith"
-                                LabelRingwraith.ForeColor = Color.Red
+    '                           Case "LabelRingwraith"
+    '                               LabelRingwraith.ForeColor = Color.Red
 
-                            Case "LabelSmiths"
-                                LabelSmiths.ForeColor = Color.Red
+    '                           Case "LabelSmiths"
+    '                               LabelSmiths.ForeColor = Color.Red
 
-                            Case "LabelThangulhad"
-                                LabelThangulhad.ForeColor = Color.Red
+    '                           Case "LabelThangulhad"
+    '                               LabelThangulhad.ForeColor = Color.Red
 
-                            Case "LabelThievery"
-                                LabelThievery.ForeColor = Color.Red
+    '                           Case "LabelThievery"
+    '                               LabelThievery.ForeColor = Color.Red
 
-                            Case "LabelTowerBattle"
-                                LabelTowerBattle.ForeColor = Color.Red
+    '                           Case "LabelTowerBattle"
+    '                               LabelTowerBattle.ForeColor = Color.Red
 
-                            Case "LabelTuckborough"
-                                LabelTuckborough.ForeColor = Color.Red
+    '                           Case "LabelTuckborough"
+    '                               LabelTuckborough.ForeColor = Color.Red
 
-                            Case "LabelSpiderWing"
-                                LabelSpiderWing.ForeColor = Color.Red
+    '                           Case "LabelSpiderWing"
+    '                               LabelSpiderWing.ForeColor = Color.Red
 
-                            Case "LabelGiantWing"
-                                LabelGiantWing.ForeColor = Color.Red
+    '                           Case "LabelGiantWing"
+    '                               LabelGiantWing.ForeColor = Color.Red
 
-                            Case "LabelDrakeWing"
-                                LabelDrakeWing.ForeColor = Color.Red
+    '                           Case "LabelDrakeWing"
+    '                               LabelDrakeWing.ForeColor = Color.Red
 
-                            Case "LabelDragonWing"
-                                LabelDragonWing.ForeColor = Color.Red
+    '                           Case "LabelDragonWing"
+    '                               LabelDragonWing.ForeColor = Color.Red
 
-                        End Select
-                    End If
+    '                       End Select
+    '                   End If
 
-					i += 1
-				End While
-			Catch ex As Exception
+    '				i += 1
+    '			End While
+    '		Catch ex As Exception
 
-			End Try
-			SQLcommand.Dispose()
-			SQLconnect.Close()
-		End If
+    '		End Try
+    '		SQLcommand.Dispose()
+    '		SQLconnect.Close()
+    '	End If
 
-	End Sub
+    'End Sub
 #End Region
 	Private Function NextThursday() As DateTime
         Dim dt As DateTime = DateTime.Today
@@ -410,196 +392,196 @@ Public Class MainForm
 		Return dt
 	End Function
 
-	Private Sub cmdComplete_Click(sender As System.Object, e As System.EventArgs) Handles cmdComplete.Click, CmdNotComplete.Click
-		Dim RaidName As String
-		'	Dim RaidLabel As Label
-        Dim SQLOutput As String = ""
-		Dim SQLconnect As New SQLite.SQLiteConnection()
-		Dim SQLcommand As SQLiteCommand
-		'SQLconnect.ConnectionString = "Data Source=" & f.FileName & ";"
-		SQLconnect.ConnectionString = "Data Source=.\Database\LotroRaids.sqlite;"
-		SQLconnect.Open()
-		SQLcommand = SQLconnect.CreateCommand
-		'Insert Record into Foo
-		'Update Last Created Record in Foo
-        Try
-            If RaidPicker.SelectedItem.ToString.Contains("'") Then
-                RaidName = RaidPicker.SelectedItem.ToString.Replace("'", "''")
-            Else
-                RaidName = RaidPicker.SelectedItem.ToString
-            End If
-        Catch
-            MessageBox.Show("Please select an item from the drop down menu first.")
-            Return
-        End Try
+    'Private Sub cmdComplete_Click(sender As System.Object, e As System.EventArgs) Handles cmdComplete.Click, CmdNotComplete.Click
+    '	Dim RaidName As String
+    '	'	Dim RaidLabel As Label
+    '       Dim SQLOutput As String = ""
+    '	Dim SQLconnect As New SQLite.SQLiteConnection()
+    '	Dim SQLcommand As SQLiteCommand
+    '	'SQLconnect.ConnectionString = "Data Source=" & f.FileName & ";"
+    '	SQLconnect.ConnectionString = "Data Source=.\Database\LotroRaids.sqlite;"
+    '	SQLconnect.Open()
+    '	SQLcommand = SQLconnect.CreateCommand
+    '	'Insert Record into Foo
+    '	'Update Last Created Record in Foo
+    '       Try
+    '           If RaidPicker.SelectedItem.ToString.Contains("'") Then
+    '               RaidName = RaidPicker.SelectedItem.ToString.Replace("'", "''")
+    '           Else
+    '               RaidName = RaidPicker.SelectedItem.ToString
+    '           End If
+    '       Catch
+    '           MessageBox.Show("Please select an item from the drop down menu first.")
+    '           Return
+    '       End Try
 
-        SQLcommand.CommandText = "Select Dictionary.UIObject from Dictionary WHERE Translation='" + RaidName + "'"
+    '       SQLcommand.CommandText = "Select Dictionary.UIObject from Dictionary WHERE Translation='" + RaidName + "'"
 
-        Dim UIObjectReader As SQLiteDataReader = SQLcommand.ExecuteReader()
-        While UIObjectReader.Read()
-            SQLOutput = UIObjectReader("UIObject")
-        End While
-        SQLcommand.Dispose()
-        SQLconnect.Close()
+    '       Dim UIObjectReader As SQLiteDataReader = SQLcommand.ExecuteReader()
+    '       While UIObjectReader.Read()
+    '           SQLOutput = UIObjectReader("UIObject")
+    '       End While
+    '       SQLcommand.Dispose()
+    '       SQLconnect.Close()
 
-        Select Case SQLOutput
-            Case "Label21st"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(Label21st)
-                Else
-                    SetInComplete(Label21st)
-                End If
-            Case "LabelAmonSul"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelAmonSul)
-                Else
-                    SetInComplete(LabelAmonSul)
-                End If
-            Case "LabelAttackAtDawn"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelAttackAtDawn)
-                Else
-                    SetInComplete(LabelAttackAtDawn)
-                End If
-            Case "LabelBarrows"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelBarrows)
-                Else
-                    SetInComplete(LabelBarrows)
-                End If
-            Case "LabelBruinen"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelBruinen)
-                Else
-                    SetInComplete(LabelBruinen)
-                End If
-            Case "LabelDannenglor"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelDannenglor)
-                Else
-                    SetInComplete(LabelDannenglor)
-                End If
-            Case "LabelDeepWay"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelDeepWay)
-                Else
-                    SetInComplete(LabelDeepWay)
-                End If
-            Case "LabelDraigoch"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelDraigoch)
-                Else
-                    SetInComplete(LabelDraigoch)
-                End If
-            Case "LabelGondamon"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelGondamon)
-                Else
-                    SetInComplete(LabelGondamon)
-                End If
-            Case "LabelIcy"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelIcy)
-                Else
-                    SetInComplete(LabelIcy)
-                End If
-            Case "LabelNecromancer"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelNecromancer)
-                Else
-                    SetInComplete(LabelNecromancer)
-                End If
-            Case "LabelPony"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelPony)
-                Else
-                    SetInComplete(LabelPony)
-                End If
-            Case "LabelRescue"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelRescue)
-                Else
-                    SetInComplete(LabelRescue)
-                End If
-            Case "LabelRingwraith"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelRingwraith)
-                Else
-                    SetInComplete(LabelRingwraith)
-                End If
-            Case "LabelSmiths"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelSmiths)
-                Else
-                    SetInComplete(LabelSmiths)
-                End If
-            Case "LabelThangulhad"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelThangulhad)
-                Else
-                    SetInComplete(LabelThangulhad)
-                End If
-            Case "LabelThievery"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelThievery)
-                Else
-                    SetInComplete(LabelThievery)
-                End If
-            Case "LabelTowerBattle"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelTowerBattle)
-                Else
-                    SetInComplete(LabelTowerBattle)
-                End If
-            Case "LabelTuckborough"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelTuckborough)
-                Else
-                    SetInComplete(LabelTuckborough)
+    '       Select Case SQLOutput
+    '           Case "Label21st"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(Label21st)
+    '               Else
+    '                   SetInComplete(Label21st)
+    '               End If
+    '           Case "LabelAmonSul"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelAmonSul)
+    '               Else
+    '                   SetInComplete(LabelAmonSul)
+    '               End If
+    '           Case "LabelAttackAtDawn"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelAttackAtDawn)
+    '               Else
+    '                   SetInComplete(LabelAttackAtDawn)
+    '               End If
+    '           Case "LabelBarrows"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelBarrows)
+    '               Else
+    '                   SetInComplete(LabelBarrows)
+    '               End If
+    '           Case "LabelBruinen"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelBruinen)
+    '               Else
+    '                   SetInComplete(LabelBruinen)
+    '               End If
+    '           Case "LabelDannenglor"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelDannenglor)
+    '               Else
+    '                   SetInComplete(LabelDannenglor)
+    '               End If
+    '           Case "LabelDeepWay"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelDeepWay)
+    '               Else
+    '                   SetInComplete(LabelDeepWay)
+    '               End If
+    '           Case "LabelDraigoch"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelDraigoch)
+    '               Else
+    '                   SetInComplete(LabelDraigoch)
+    '               End If
+    '           Case "LabelGondamon"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelGondamon)
+    '               Else
+    '                   SetInComplete(LabelGondamon)
+    '               End If
+    '           Case "LabelIcy"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelIcy)
+    '               Else
+    '                   SetInComplete(LabelIcy)
+    '               End If
+    '           Case "LabelNecromancer"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelNecromancer)
+    '               Else
+    '                   SetInComplete(LabelNecromancer)
+    '               End If
+    '           Case "LabelPony"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelPony)
+    '               Else
+    '                   SetInComplete(LabelPony)
+    '               End If
+    '           Case "LabelRescue"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelRescue)
+    '               Else
+    '                   SetInComplete(LabelRescue)
+    '               End If
+    '           Case "LabelRingwraith"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelRingwraith)
+    '               Else
+    '                   SetInComplete(LabelRingwraith)
+    '               End If
+    '           Case "LabelSmiths"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelSmiths)
+    '               Else
+    '                   SetInComplete(LabelSmiths)
+    '               End If
+    '           Case "LabelThangulhad"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelThangulhad)
+    '               Else
+    '                   SetInComplete(LabelThangulhad)
+    '               End If
+    '           Case "LabelThievery"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelThievery)
+    '               Else
+    '                   SetInComplete(LabelThievery)
+    '               End If
+    '           Case "LabelTowerBattle"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelTowerBattle)
+    '               Else
+    '                   SetInComplete(LabelTowerBattle)
+    '               End If
+    '           Case "LabelTuckborough"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelTuckborough)
+    '               Else
+    '                   SetInComplete(LabelTuckborough)
 
-                End If
-            Case "LabelSpiderWing"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelSpiderWing)
-                Else
-                    SetInComplete(LabelSpiderWing)
+    '               End If
+    '           Case "LabelSpiderWing"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelSpiderWing)
+    '               Else
+    '                   SetInComplete(LabelSpiderWing)
 
-                End If
-            Case "LabelGiantWing"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelGiantWing)
-                Else
-                    SetInComplete(LabelGiantWing)
+    '               End If
+    '           Case "LabelGiantWing"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelGiantWing)
+    '               Else
+    '                   SetInComplete(LabelGiantWing)
 
-                End If
-            Case "LabelDrakeWing"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelDrakeWing)
-                Else
-                    SetInComplete(LabelDrakeWing)
+    '               End If
+    '           Case "LabelDrakeWing"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelDrakeWing)
+    '               Else
+    '                   SetInComplete(LabelDrakeWing)
 
-                End If
-            Case "LabelDragonWing"
-                If sender.Name = "cmdComplete" Then
-                    SetComplete(LabelDragonWing)
-                Else
-                    SetInComplete(LabelDragonWing)
+    '               End If
+    '           Case "LabelDragonWing"
+    '               If sender.Name = "cmdComplete" Then
+    '                   SetComplete(LabelDragonWing)
+    '               Else
+    '                   SetInComplete(LabelDragonWing)
 
-                End If
+    '               End If
 
-        End Select
-        'SQLcommand.CommandText = "UPDATE Raids SET Raids.DayComplete = '" + NextThursday() + "' WHERE Raids.RaidName ='" + RaidLabel.Name + "' AND CharacterName = '" + ComboBox1.SelectedItem.ToString.Split("-")(0).Trim + "' AND Sever ='" + ComboBox1.SelectedItem.ToString.Split("-")(1).Trim + "'"
-        'Uncomment this to be able to insert Name fields in to the datbase.
-        'SQLcommand.CommandText = "INSERT INTO Raids ('Name','CharacterName') VALUES('" + LabelName.Name + "','" + ComboBox1.SelectedItem.ToString.Split("-")(0).Trim + "'"
-        '	SQLcommand.ExecuteNonQuery()
-        '	SQLcommand.Dispose()
-        '	RaidLabel.ForeColor = Color.Red
-        'Catch ex As Exception
-        '	MessageBox.Show("Please create a character under File -> Add character first.", "No Characters Found!", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        'End Try
+    '       End Select
+    '       'SQLcommand.CommandText = "UPDATE Raids SET Raids.DayComplete = '" + NextThursday() + "' WHERE Raids.RaidName ='" + RaidLabel.Name + "' AND CharacterName = '" + ComboBox1.SelectedItem.ToString.Split("-")(0).Trim + "' AND Sever ='" + ComboBox1.SelectedItem.ToString.Split("-")(1).Trim + "'"
+    '       'Uncomment this to be able to insert Name fields in to the datbase.
+    '       'SQLcommand.CommandText = "INSERT INTO Raids ('Name','CharacterName') VALUES('" + LabelName.Name + "','" + ComboBox1.SelectedItem.ToString.Split("-")(0).Trim + "'"
+    '       '	SQLcommand.ExecuteNonQuery()
+    '       '	SQLcommand.Dispose()
+    '       '	RaidLabel.ForeColor = Color.Red
+    '       'Catch ex As Exception
+    '       '	MessageBox.Show("Please create a character under File -> Add character first.", "No Characters Found!", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '       'End Try
 
 
-    End Sub
+    '   End Sub
 
 	Private Sub cmdCompleteAll_Click(sender As System.Object, e As System.EventArgs) Handles cmdCompleteAll.Click, menuCompleteAll.Click
 		Dim SQLconnect As New SQLite.SQLiteConnection()
@@ -613,7 +595,7 @@ Public Class MainForm
 		SQLcommand.Dispose()
 		SQLConnect.close()
 		SQLconnect.dispose()
-		LoadStatus()
+        'LoadStatus()
 
 	End Sub
 End Class
