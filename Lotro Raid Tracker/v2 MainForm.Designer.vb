@@ -38,7 +38,7 @@ Partial Class MainForm
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmdCompleteAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmdReset = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.CharacterSelector = New System.Windows.Forms.ComboBox()
         Me.CmdNotComplete = New System.Windows.Forms.Button()
         Me.cmdComplete = New System.Windows.Forms.Button()
         Me.RaidPicker = New System.Windows.Forms.ComboBox()
@@ -53,12 +53,12 @@ Partial Class MainForm
         'LabelSkirmishName
         '
         Me.LabelSkirmishName.AutoSize = True
-        Me.LabelSkirmishName.BackColor = System.Drawing.Color.AliceBlue
-        Me.LabelSkirmishName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.LabelSkirmishName.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.LabelSkirmishName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.LabelSkirmishName.Location = New System.Drawing.Point(240, 172)
+        Me.LabelSkirmishName.ForeColor = System.Drawing.SystemColors.ControlLight
+        Me.LabelSkirmishName.Location = New System.Drawing.Point(247, 117)
         Me.LabelSkirmishName.Name = "LabelSkirmishName"
-        Me.LabelSkirmishName.Size = New System.Drawing.Size(207, 19)
+        Me.LabelSkirmishName.Size = New System.Drawing.Size(205, 17)
         Me.LabelSkirmishName.TabIndex = 18
         Me.LabelSkirmishName.Text = "Skirmish Completion Status"
         '
@@ -67,7 +67,7 @@ Partial Class MainForm
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.HelpToolStripMenuItem, Me.cmdCompleteAll, Me.cmdReset})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(698, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(693, 24)
         Me.MenuStrip1.TabIndex = 40
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -154,19 +154,19 @@ Partial Class MainForm
         Me.cmdReset.Size = New System.Drawing.Size(106, 20)
         Me.cmdReset.Text = "Reset Skirmishes"
         '
-        'ComboBox1
+        'CharacterSelector
         '
-        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(12, 76)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(220, 21)
-        Me.ComboBox1.Sorted = True
-        Me.ComboBox1.TabIndex = 41
+        Me.CharacterSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CharacterSelector.FormattingEnabled = True
+        Me.CharacterSelector.Location = New System.Drawing.Point(9, 52)
+        Me.CharacterSelector.Name = "CharacterSelector"
+        Me.CharacterSelector.Size = New System.Drawing.Size(220, 21)
+        Me.CharacterSelector.Sorted = True
+        Me.CharacterSelector.TabIndex = 41
         '
         'CmdNotComplete
         '
-        Me.CmdNotComplete.Location = New System.Drawing.Point(600, 103)
+        Me.CmdNotComplete.Location = New System.Drawing.Point(597, 79)
         Me.CmdNotComplete.Name = "CmdNotComplete"
         Me.CmdNotComplete.Size = New System.Drawing.Size(86, 23)
         Me.CmdNotComplete.TabIndex = 2
@@ -175,7 +175,7 @@ Partial Class MainForm
         '
         'cmdComplete
         '
-        Me.cmdComplete.Location = New System.Drawing.Point(466, 103)
+        Me.cmdComplete.Location = New System.Drawing.Point(463, 79)
         Me.cmdComplete.Name = "cmdComplete"
         Me.cmdComplete.Size = New System.Drawing.Size(86, 23)
         Me.cmdComplete.TabIndex = 1
@@ -186,7 +186,7 @@ Partial Class MainForm
         '
         Me.RaidPicker.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.RaidPicker.FormattingEnabled = True
-        Me.RaidPicker.Location = New System.Drawing.Point(466, 76)
+        Me.RaidPicker.Location = New System.Drawing.Point(463, 52)
         Me.RaidPicker.Name = "RaidPicker"
         Me.RaidPicker.Size = New System.Drawing.Size(220, 21)
         Me.RaidPicker.Sorted = True
@@ -195,31 +195,31 @@ Partial Class MainForm
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.AliceBlue
-        Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label1.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label1.Location = New System.Drawing.Point(80, 46)
+        Me.Label1.ForeColor = System.Drawing.SystemColors.ControlLight
+        Me.Label1.Location = New System.Drawing.Point(77, 32)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(81, 19)
+        Me.Label1.Size = New System.Drawing.Size(79, 17)
         Me.Label1.TabIndex = 51
         Me.Label1.Text = "Character"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.BackColor = System.Drawing.Color.AliceBlue
-        Me.Label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label2.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label2.Location = New System.Drawing.Point(508, 46)
+        Me.Label2.ForeColor = System.Drawing.SystemColors.ControlLight
+        Me.Label2.Location = New System.Drawing.Point(514, 32)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(133, 19)
+        Me.Label2.Size = New System.Drawing.Size(131, 17)
         Me.Label2.TabIndex = 52
         Me.Label2.Text = "Select a skirmish"
         '
         'cmdDeleteCharacter
         '
         Me.cmdDeleteCharacter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.cmdDeleteCharacter.Location = New System.Drawing.Point(148, 103)
+        Me.cmdDeleteCharacter.Location = New System.Drawing.Point(145, 79)
         Me.cmdDeleteCharacter.Name = "cmdDeleteCharacter"
         Me.cmdDeleteCharacter.Size = New System.Drawing.Size(86, 23)
         Me.cmdDeleteCharacter.TabIndex = 3
@@ -228,7 +228,7 @@ Partial Class MainForm
         '
         'cmdAddCharacter
         '
-        Me.cmdAddCharacter.Location = New System.Drawing.Point(12, 103)
+        Me.cmdAddCharacter.Location = New System.Drawing.Point(9, 79)
         Me.cmdAddCharacter.Name = "cmdAddCharacter"
         Me.cmdAddCharacter.Size = New System.Drawing.Size(86, 23)
         Me.cmdAddCharacter.TabIndex = 3
@@ -237,10 +237,11 @@ Partial Class MainForm
         '
         'FlowLayoutPanel1
         '
+        Me.FlowLayoutPanel1.AutoScroll = True
         Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(12, 212)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(13, 137)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(674, 190)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(670, 258)
         Me.FlowLayoutPanel1.TabIndex = 53
         '
         'MainForm
@@ -249,7 +250,7 @@ Partial Class MainForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
         Me.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.ClientSize = New System.Drawing.Size(698, 414)
+        Me.ClientSize = New System.Drawing.Size(693, 424)
         Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Controls.Add(Me.CmdNotComplete)
         Me.Controls.Add(Me.cmdAddCharacter)
@@ -258,7 +259,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.RaidPicker)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.ComboBox1)
+        Me.Controls.Add(Me.CharacterSelector)
         Me.Controls.Add(Me.LabelSkirmishName)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -271,13 +272,13 @@ Partial Class MainForm
         Me.PerformLayout()
 
     End Sub
-	Friend WithEvents LabelSkirmishName As System.Windows.Forms.Label
+    Friend WithEvents LabelSkirmishName As System.Windows.Forms.Label
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-	Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-	Friend WithEvents AddRaidToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-	Friend WithEvents ExitToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-	Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-	Friend WithEvents ComboBox1 As System.Windows.Forms.ComboBox
+    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents AddRaidToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ExitToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents CharacterSelector As System.Windows.Forms.ComboBox
 	Friend WithEvents CharacterToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 	Friend WithEvents AddCharacterMenu As System.Windows.Forms.ToolStripMenuItem
 	Friend WithEvents menuResetCharacter As System.Windows.Forms.ToolStripMenuItem

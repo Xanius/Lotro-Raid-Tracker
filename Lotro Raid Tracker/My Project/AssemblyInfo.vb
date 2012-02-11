@@ -12,7 +12,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("Simple application that allows you to indicate which raids/skirmishes you have completed in the past week.")> 
 <Assembly: AssemblyCompany("Shattered Paradigm")> 
 <Assembly: AssemblyProduct("Lotro Raid Tracker")> 
-<Assembly: AssemblyCopyright("Copyright © Shattered Paradim 2011")> 
+<Assembly: AssemblyCopyright("Copyright © Shattered Paradim 2012")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.5.2")> 
-<Assembly: AssemblyFileVersion("1.5.2")> 
+<Assembly: AssemblyVersion("2.0")> 
+<Assembly: AssemblyFileVersion("2.0")> 
